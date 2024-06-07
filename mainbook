@@ -1,0 +1,152 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include "OrderBookEntry.h"
+
+
+using namespace std;
+
+
+double computeAveragePrice(std::vector<OrderBookEntry>& entries);
+double computeLowPrice(std::vector<OrderBookEntry>& entries);
+double computeHighPrice(std::vector<OrderBookEntry>& entries);
+double computePriceSpread(std::vector<OrderBookEntry>& entries);
+void printOrderBook(std::vector<OrderBookEntry>& entries);
+int functionsMenu();
+void processUserOption(std::vector<OrderBookEntry>& entries, int userOption);
+
+
+int main(){
+    vector<OrderBookEntry> orders;
+
+    orders.push_back(OrderBookEntry{7.44564869,0.02187308,"2020/03/17 17:01:24.884492","ETH/BTC",OrderBookType::bid});
+
+    orders.push_back(OrderBookEntry{3.467434,0.02187307,"2020/03/17 17:01:24.884492","ETH/BTC",OrderBookType::bid});
+    
+    orders.push_back(OrderBookEntry{9.80492203,0.02189093,"2020/03/17 17:01:24.884492","ETH/BTC", OrderBookType::ask});
+    
+    printOrderBook(orders);
+
+
+    while (true){
+        int userOption;
+        userOption = functionsMenu();       
+        processUserOption(orders,userOption);
+    }
+
+    return 0;
+}
+
+
+void printOrderBook(std::vector<OrderBookEntry>& orders) {
+    cout << "Listing All Orders" << endl << endl;
+    string type;
+    for (const OrderBookEntry& order : orders){
+        if(order.orderType==OrderBookType::bid){
+            type = "bid";
+        } else {
+            type = "ask";
+        }
+        cout << "Order: " << order.product << ", " << type << "  | Price: " << order.price << endl;
+    }
+    cout << endl << "==========" << endl << endl;
+}
+
+
+int functionsMenu(){
+    int userOption;
+    while(true) {
+        cout << "Menu of functions: please, choose one function to execute." << endl << endl;
+        cout << "1) Compute the average Price of all orders." << endl;
+        cout << "2) Compute the Lowest Price of all orders." << endl;
+        cout << "3) Compute the highest Price of all orders." << endl;
+        cout << "4) Get spread (between the highest bid and lowest offer)" << endl << endl;
+        cout << "Please enter the number of the function to execute: ";
+        cin >> userOption;
+        if(userOption > 4 || userOption==0) {
+            cout << endl;
+            cout << "!!!: INVALID OPTION"<<endl;
+            cout << "Only valid options are accepted (1,2,3 or 4)" << endl << "==========" << endl;
+            cout << endl;
+        } else { 
+            cout << endl << endl;
+            return userOption;
+        }
+    }
+}
+
+void processUserOption(std::vector<OrderBookEntry>& entries, int userOption){
+    switch(userOption) {
+        case 1:
+            cout << "The average Price of all orders is: " << computeAveragePrice(entries) << endl;
+            cout << endl << endl;
+            cout << "==========" << endl << endl;
+            break;
+        case 2:
+            cout << "The Lowest Price of all orders is: " << computeLowPrice(entries) << endl;
+            cout << endl << endl;
+            cout << "==========" << endl << endl;
+            break;
+        case 3:
+            cout << "The Highest Price of all orders is: " << computeHighPrice(entries) << endl;
+            cout << endl << endl;
+            cout << "==========" << endl << endl;
+            break;
+        case 4:
+            cout << "The Spread (between the highest bid and lowest offer) is : " << computePriceSpread(entries) << endl; 
+            cout << endl << endl;
+            cout << "==========" << endl << endl;
+            break;
+    }
+}
+
+
+
+double computeAveragePrice(std::vector<OrderBookEntry>& entries){
+    double avg = 0;
+    int i = 0;
+    for(const OrderBookEntry& entry : entries) {
+        avg += entry.price;  
+        ++i;
+    }
+    return (avg/i);
+}
+
+double computeLowPrice(std::vector<OrderBookEntry>& entries){
+  double low=0;
+  for(const OrderBookEntry& entry : entries) {
+      if (entry.price <= low || low == 0){
+        low = entry.price;
+      }
+  }
+  return low;
+}
+
+double computeHighPrice(std::vector<OrderBookEntry>& entries){
+  double high = 0;
+  for(const OrderBookEntry& entry : entries) {
+      if (entry.price >= high || high == 0){
+        high=entry.price;
+      }
+  }
+  return high;
+}
+
+
+double computePriceSpread(std::vector<OrderBookEntry>& entries){
+    double spread;
+    double bid=0;
+    double offer=0;
+    for(const OrderBookEntry& entry : entries){
+        switch(entry.orderType){
+            case OrderBookType::bid:
+                bid = (bid <= entry.price || bid==0) ? entry.price : bid; 
+                break;
+            case OrderBookType::ask:
+                offer = (offer >= entry.price || offer==0) ? entry.price : offer; 
+                break;
+        }
+    }
+    spread = offer - bid;
+    return spread;
+}

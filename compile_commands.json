@@ -1,0 +1,62 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "merkelrex",
+      "CSVReader.cpp"
+    ],
+    "directory": "/home/gd10/code/cppct/6",
+    "file": "/home/gd10/code/cppct/6/CSVReader.cpp",
+    "output": "/home/gd10/code/cppct/6/merkelrex"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "merkelrex",
+      "main.cpp"
+    ],
+    "directory": "/home/gd10/code/cppct/6",
+    "file": "/home/gd10/code/cppct/6/main.cpp",
+    "output": "/home/gd10/code/cppct/6/merkelrex"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "merkelrex",
+      "MerkelMain.cpp"
+    ],
+    "directory": "/home/gd10/code/cppct/6",
+    "file": "/home/gd10/code/cppct/6/MerkelMain.cpp",
+    "output": "/home/gd10/code/cppct/6/merkelrex"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "merkelrex",
+      "OrderBook.cpp"
+    ],
+    "directory": "/home/gd10/code/cppct/6",
+    "file": "/home/gd10/code/cppct/6/OrderBook.cpp",
+    "output": "/home/gd10/code/cppct/6/merkelrex"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "merkelrex",
+      "OrderBookEntry.cpp"
+    ],
+    "directory": "/home/gd10/code/cppct/6",
+    "file": "/home/gd10/code/cppct/6/OrderBookEntry.cpp",
+    "output": "/home/gd10/code/cppct/6/merkelrex"
+  }
+]
